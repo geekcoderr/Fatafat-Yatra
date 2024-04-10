@@ -1,5 +1,6 @@
 /* google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Akronim&family=Ojuju:wght@200..800&family=Yatra+One&display=swap');
 
 /* core css */
 body {
@@ -155,6 +156,7 @@ input[type=radio]::after {
     z-index: 1000;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
+
 
 #listHover {
     margin: 7px;
@@ -932,4 +934,33 @@ body {
   100% {
     transform: scale(1);
   }
+}
+
+#img2{
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Barrio&display=swap');
+
+#slogan{
+  font-family: "Barrio", system-ui;
+  font-weight: 800;
+  font-style: normal;
+  display: inline-block;
+  font-size: 24px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 0.15em solid #fff;
+  animation: typing 2s steps(20) infinite, blink 0.5s infinite;
+  font-style: italic;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 80%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
 }

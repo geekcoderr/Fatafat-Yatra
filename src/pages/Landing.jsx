@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import BottomBar from '../components/navbar/BottomBar';
-import img from '/home/geekcoderr/Astra/Projects/TRAVELBACKUP/src/assets/images/garrett-parker-DlkF4-dbCOU-unsplash.jpg';
+import img from '../assets/images/garrett-parker-DlkF4-dbCOU-unsplash.jpg';
+import travel from '../assets/images/travel2 (1).jpg';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -16,11 +17,12 @@ const LandingPage = () => {
       <div className="hero-section">
         <div className="hero-content">
           <h1>
-            <span style={{ color: 'rgb(255, 99, 71)' }}>Experience</span> the{' '}
-            <span style={{ color: 'rgb(255, 99, 71)' }}>Best</span> Bus
+            <span style={{ color: 'rgb(255, 99, 71)' }}>India's</span>{' '}
+            <span style={{ color: '' }}>Best <span style={{color:'rgb(255, 99, 71)'}}> LAST MOMENT </span><br /></span> Bus
             <span style={{ color: 'rgb(255, 99, 71)' }}> Booking </span>
             with{' '}
-            <span style={{ color: 'rgb(255, 99, 71)' }}>Fatafat Yatra</span>
+            <br />
+            <span style={{ color: 'rgb(255, 99, 71)' }}>Fatafat Yatra!</span>
           </h1>
           <p>
             <span style={{ color: 'rgb(255, 99, 71)' }}>Discover</span> the
@@ -140,6 +142,7 @@ const LandingPage = () => {
           <span style={{ color: 'rgb(255, 255, 255)' }}>Book Now</span>
         </button>
       </div> */}
+      {/* <center> <img src={travel} id="img2" alt="Fatafat Yatra" /></center> */}
       <div className="book-now-container">
         <div className="book-now-content" onClick={handleBookNow}>
           <div className="book-now-text">
