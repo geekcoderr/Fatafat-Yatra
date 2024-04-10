@@ -1,16 +1,29 @@
+import { useState, useEffect } from 'react';
 import Booking from '../components/booking/Booking';
+import BottomBar from '../components/navbar/BottomBar';
+import NotFound from '../pages/NotFound';
 
-const Home = () => {
+const Home = (props) => {
+  const storedValue = localStorage.getItem('isAuthenticated');
+  const [isAuthenticated, setAuthentication] = useState(storedValue === 'true');
+
+  useEffect(() => {
+    const storedValue = localStorage.getItem('isAuthenticated');
+    if (storedValue) {
+      setAuthentication(storedValue === 'true');
+    }
+  }, []);
+
   return (
     <>
-    
-    <div className='booking_area w-full h-96 bg-gradient'>
+      <div className='booking_area w-full' id="back">
         <div className="max-w-6xl w-full px-4 lg:px-0 mx-auto">
-            <Booking />
+          {isAuthenticated ? <Booking /> : <NotFound />}
         </div>
-    </div>
+        <BottomBar />
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

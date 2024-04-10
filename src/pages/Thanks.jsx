@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
+import BottomBar from "../components/navbar/BottomBar";
 
 const Thanks = () => {
   return (
-    <div className='booking_area w-full h-60 bg-gradient'>
         <div className="max-w-6xl w-full px-4 lg:px-0 mx-auto">
             <div className="pt-40 pb-20">
                 <div className="max-w-lg w-full bg-white drop-shadow mx-auto rounded-md py-20 px-4 text-center">
@@ -16,8 +16,8 @@ const Thanks = () => {
                     </div>
                 </div>
             </div>
+            <BottomBar />
         </div>
-    </div>
   )
 }
 

@@ -4,6 +4,16 @@ import BookingForm from "./BookingForm";
 
 const Booking = () => {
 
+    const [buttonText, setButtonText] = useState('Check Aavilability');
+
+    const handleMouseEnter = () => {
+        setButtonText('...Let\'s CheckIt...');
+    };
+
+    const handleMouseLeave = () => {
+        setButtonText('Check Availability');
+    };
+    
     // state
     const [trip, setTrip] = useState([{
         "tripType": "",
@@ -37,43 +47,24 @@ const Booking = () => {
     }
 
     return (
-        <div className='pt-40 pb-20'>
-            <form className='max-w-5xl px-6 pt-8 pb-10 w-full mx-auto bg-white rounded-lg drop-shadow'>
+        <div className='pt-40 pb-20'  >
+            <form className='max-w-5xl px-6 pt-8 pb-10 w-full mx-auto bg-white rounded-lg drop-shadow' id="bookpanel">
                 <div className='flex items-center justify-between flex-wrap mb-10'>
                     <div className="flex-item">
                         <h2 className='text-lg font-bold mb-3'>Trip type:</h2>
                         <span className='relative overflow-hidden inline-block mb-2 lg:mb-0 mr-3 border-1-custom py-2 px-4 rounded-full transition-all duration-300 hover:bg-gray-300 font-bold'>
-                            <input type="radio" name='trip-type' className='hover:bg-indigo-600' onClick={ () => handleTrip({type: 'one-way'}) } /> One-way
+                            <input type="radio" name='trip-type' className='hover:bg-indigo-600' onClick={() => handleTrip({ type: 'one-way' })} /> One-way
                         </span>
                         <span className='relative overflow-hidden inline-block mb-2 lg:mb-0 mr-3 border-1-custom py-2 px-4 rounded-full transition-all duration-300 hover:bg-gray-300 font-bold'>
-                            <input type="radio" name='trip-type' className='hover:bg-indigo-600' onClick={ () => handleTrip({type: 'round-way'}) } /> Round
-                        </span>
-                        <span className='relative overflow-hidden inline-block mb-2 lg:mb-0 mr-3 border-1-custom py-2 px-4 rounded-full transition-all duration-300 hover:bg-gray-300 font-bold'>
-                            <input type="radio" name='trip-type' className='hover:bg-indigo-600' onClick={ () => handleTrip({type: 'multi-city'}) } /> Multi-city
+                            <input type="radio" name='trip-type' className='hover:bg-indigo-600' onClick={() => handleTrip({ type: 'round-way' })} /> Round
                         </span>
                     </div>
-                    <div className="flex-item">
-                        <h2 className='text-lg font-bold mb-3'>Vehicle Type:</h2>
-                        <span className='relative overflow-hidden inline-block mb-2 lg:mb-0 mr-3 border-1-custom py-2 px-4 rounded-full transition-all duration-300 hover:bg-gray-300 font-bold'>
-                            <input type="radio" name='vehicle-type' className='hover:bg-indigo-600' onClick={ () => handleVehicle({type: 'bus'}) } /> Bus
-                        </span>
-                        <span className='relative overflow-hidden inline-block mb-2 lg:mb-0 mr-3 border-1-custom py-2 px-4 rounded-full transition-all duration-300 hover:bg-gray-300 font-bold'>
-                            <input type="radio" name='vehicle-type' className='hover:bg-indigo-600' onClick={ () => handleVehicle({type: 'truck'}) } /> Truck
-                        </span>
-                        <span className='relative overflow-hidden inline-block mb-2 lg:mb-0 mr-3 border-1-custom py-2 px-4 rounded-full transition-all duration-300 hover:bg-gray-300 font-bold'>
-                            <input type="radio" name='vehicle-type' className='hover:bg-indigo-600' onClick={ () => handleVehicle({type: 'bike'}) } /> Bike
-                        </span>
-                        <span className='relative overflow-hidden inline-block mb-2 lg:mb-0 mr-3 border-1-custom py-2 px-4 rounded-full transition-all duration-300 hover:bg-gray-300 font-bold'>
-                            <input type="radio" name='vehicle-type' className='hover:bg-indigo-600' onClick={ () => handleVehicle({type: 'car'}) } /> Car
-                        </span>
-                    </div>
+
                 </div>
 
-                {(trip[0].tripType === 'multi-city') &&
-                <div className='inline-block mb-3 font-medium cursor-pointer p-2 bg-gray-200 rounded mr-1 transition-all duration-300 hover:bg-gray-300' onClick={ () => handleMultiCity() }>+ Add city</div>}
-                
+
                 {multi.map(item => <BookingForm key={item.index} trip={trip} />)}
-                
+
 
                 <div className="flex items-center justify-between flex-wrap mb-10">
                     <div className="flex-item">
@@ -91,7 +82,7 @@ const Booking = () => {
                 </div>
 
                 <div className="w-full text-center pt-10">
-                    <Link to='/thanks' className='py-4 px-12 rounded-md bg-indigo-600 text-white font-bold'>Send Request</Link>
+                    <Link to='/thanks' id="bookButton"  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className='py-4 px-12 rounded-md bg-indigo-600 text-white font-bold'>{buttonText}</Link>
                 </div>
             </form>
         </div>
