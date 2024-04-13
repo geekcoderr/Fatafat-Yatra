@@ -43,7 +43,7 @@ const LandingPage = () => {
                   </h3>
                   <p>
                     <span style={{ color: 'rgb(255, 99, 71)' }}>Book</span> your
-                    bus tickets in a matter of seconds with our
+                    bus tickets in a matter of seconds with our {' '}
                     <span style={{ color: 'rgb(255, 99, 71)' }}>
                       user-friendly
                     </span>{' '}
@@ -80,7 +80,7 @@ const LandingPage = () => {
                   </h3>
                   <p>
                     <span style={{ color: 'rgb(255, 99, 71)' }}>Get</span> the
-                    best deals and discounts on your bus tickets with
+                    best deals and discounts on your bus tickets with {' '}
                     <span style={{ color: 'rgb(255, 99, 71)' }}>
                       Fatafat Yatra
                     </span>
@@ -101,7 +101,7 @@ const LandingPage = () => {
                   </h3>
                   <p>
                     <span style={{ color: 'rgb(255, 99, 71)' }}>Easily</span>{' '}
-                    manage your bookings, including
+                    manage your bookings, including {' '}
                     <span style={{ color: 'rgb(255, 99, 71)' }}>
                       hassle-free
                     </span>{' '}
@@ -122,7 +122,7 @@ const LandingPage = () => {
                   </h3>
                   <p>
                     <span style={{ color: 'rgb(255, 99, 71)' }}>Reach</span> out
-                    to our friendly customer support team for any
+                    to our friendly customer support team for any {' '}
                     <span style={{ color: 'rgb(255, 99, 71)' }}>assistance</span>{' '}
                     you may need.
                   </p>

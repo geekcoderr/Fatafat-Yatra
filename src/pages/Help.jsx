@@ -12,7 +12,7 @@ const HelpForm = (props) => {
     if (storedValue) {
       setAuthentication(storedValue === 'true');
     }
-  }, []);
+  }, [storedValue]);
 
   const actiononsubmit = (event) => {
     event.preventDefault(); // Prevent form submission
@@ -25,7 +25,7 @@ const HelpForm = (props) => {
   };
 
   return (
-    <>
+    <div style={{backdropFilter: 'blur(5px)'}}>
       {isAuthenticated ? (
         <div className="flex justify-center items-center h-screen">
           <div className="help-form-container">
@@ -35,7 +35,7 @@ const HelpForm = (props) => {
               </div>
             </center>
             <center>
-              <form className="feedback-form" onSubmit={actiononsubmit}>
+              <form className="feedback-form" onSubmit={actiononsubmit} style={{background:'linear-gradient( to right, rgba(128, 0, 128, 0.2), rgba(238, 130, 238, 0.2) )'}}>
                 <input type="text" placeholder="Name" required />
                 <input type="email" placeholder="Email" required />
                 <textarea placeholder="Message" required></textarea>
@@ -48,7 +48,7 @@ const HelpForm = (props) => {
         <NotFound />
       )}
               <BottomBar />
-    </>
+    </div>
   );
 };
 

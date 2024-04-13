@@ -12,17 +12,17 @@ const Home = (props) => {
     if (storedValue) {
       setAuthentication(storedValue === 'true');
     }
-  }, []);
+  }, [storedValue]);
 
   return (
-    <>
+    <div className='main' >
       <div className='booking_area w-full' id="back">
         <div className="max-w-6xl w-full px-4 lg:px-0 mx-auto">
           {isAuthenticated ? <Booking /> : <NotFound />}
         </div>
         <BottomBar />
       </div>
-    </>
+    </div>
   );
 };
 

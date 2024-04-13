@@ -77,7 +77,7 @@ const WebNav = (props) => {
                                 <li id="listHover" className="py-2 px-4 rounded-md text-center"><Link to="/my-bookings">My Bookings</Link></li>
                                 {/* <li id="listHover" className="py-2 px-4 rounded-md text-center"><Link to="/cancel-tickets">Cancel Tickets</Link></li> */}
                                 <li id="listHover" className="py-2 px-4 rounded-md text-center"><Link to="/show-my-ticket">Show My Ticket</Link></li>
-                                <li id="listHover" className="py-2 px-4 rounded-md text-center"><button onClick={handleSignOut}>Sign Out</button></li>
+                                <li id="listHover" style={{backgroundColor:'rgb(255, 155, 15)',color:'black'}} className="py-2 px-4 rounded-md text-center"><button onClick={handleSignOut}>Sign Out</button></li>
                             </ul>
                         </div>
                     )}
@@ -113,13 +113,13 @@ const WebNav = (props) => {
                     </div>
 
                     <div className="flex-item hidden lg:block">
-                        <Link id="asset" to="/Home" className='mr-3 border-1-custom py-2 px-4 rounded-full transition-all duration-300 hover:bg-gray-300'>
+                        <Link id="asset1"  to="/Home" className='mr-3 border-1-custom py-2 px-4 rounded-full transition-all duration-300 hover:bg-gray-300'>
                             <img src={Bus} id="assetimage" className="w-5 inline mr-1" alt="bus" />
                             <span>Buses</span>
                         </Link>
                     </div>
                     <div className="flex-item hidden lg:block">
-                        <Link id="asset" to="/Help" className='mr-3 border-1-custom py-2 px-4 rounded-full transition-all duration-300 hover:bg-gray-300'>
+                        <Link id="asset2" to="/Help" className='mr-3 border-1-custom py-2 px-4 rounded-full transition-all duration-300 hover:bg-gray-300'>
                             <img src={help} id="assetimage" className="w-5 inline mr-1" alt="policies" />
                             <span>Support</span>
                         </Link>
