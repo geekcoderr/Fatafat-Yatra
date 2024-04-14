@@ -22,7 +22,7 @@ const NotFound = () => {
   
 
   return (
-    <div className='flex justify-center items-center h-screen' >
+    <div className='flex justify-center items-center h-screen' style={{backdropFilter: 'blur(5px)'}}>
       <div className="max-w-6xl w-full px-4 lg:px-0 mx-auto">
         <div className="pt-40 pb-20" >
           <div className="max-w-lg w-full bg-white drop-shadow mx-auto rounded-md py-20 px-4 text-center" id="notfound">

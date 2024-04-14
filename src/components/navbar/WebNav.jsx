@@ -37,6 +37,7 @@ const WebNav = (props) => {
         // Perform sign out actions here, such as clearing session, etc.
         localStorage.removeItem('isAuthenticated');
         setIsLoggedIn(false);
+        localStorage.setItem('username','');
         navigate('/');
     };
 

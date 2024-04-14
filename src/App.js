@@ -11,6 +11,7 @@ import Register from './Authentication/Register';
 import BookingList from "./components/booking/BookingList";
 import Profile from "./components/booking/Profile"
 import NotAvilable from './pages/NotAvilable';
+import BookProcessor from "./pages/BookProcessor";
 import './assets/App.css'
 
 function App() {
@@ -76,7 +77,17 @@ function App() {
             authentication ? (
               <Profile  />
             ) : (
-              <NotFound/>
+              <Landing />
+            )
+          }
+        />
+        <Route
+          path="/bookProcessor"
+          element={
+            authentication ? (
+              <BookProcessor  />
+            ) : (
+              <NotFound />
             )
           }
         />

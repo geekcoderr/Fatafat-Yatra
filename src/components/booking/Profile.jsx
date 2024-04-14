@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import profilePic from '../../assets/images/busin.png';
 import BottomBar from '../../components/navbar/BottomBar';
+import axios from 'axios';
 
 
 const EyeIcon = () => (
@@ -26,72 +27,87 @@ const EyeSlashIcon = () => (
 );
 
 const Profile = () => {
+
+
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
 
-  const profileData = {
-    id: '661a6610109afc7958590b08',
-    username: 'geekcoderr',
-    password: 'nanu',
-    email: 'mnishant222@gmail.com',
-    accountCreationDate: '2024-04-13T11:01:36.134Z',
-    accountCreationTime: '16:31:36 GMT+0530 (India Standard Time)',
-  };
+  const nul='';
+  const [profileData, setProfileData] = useState({
+    id: nul,
+    username: nul,
+    password: nul,
+    email: nul,
+    accountCreationDate: nul,
+    accountCreationTime: nul,
+  });
+
+
+  useEffect(()=>{
+    const username=localStorage.getItem('username');
+    axios.get(`http://localhost:3001/profile/${username}`).then((response) => {
+      setProfileData(response.data);
+    }).catch(error=>{
+      console.log(error);
+    });
+
+  });
+
 
   return (
     <>
-    <div className="profile-container">
-      <div className="profile-card">
-        <div className="profile-header">
-          <h1 className="profile-title">Fatafat Yatra Profile</h1>
-          <img src={profilePic} alt="Profile" className="profile-image" />
-          <div className="username-container">
-            <h2 style={{
-              background: 'linear-gradient(to right, #E91E63, #9C27B0, #673AB7, #3F51B5, #2196F3, #03A9F4, #00BCD4)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}>
-              @{profileData.username}
-            </h2>
-          </div>
-        </div>
-        <div className="profile-details">
-          <div className="detail-row">
-            <span className="detail-label detail-label-green">ID:</span>
-            <span className="detail-value">{profileData.id}</span>
-          </div>
-          <div className="detail-row">
-            <span className="detail-label detail-label-orange">Password:</span>
-            <div className="password-container">
-              <span className="detail-value">{showPassword ? profileData.password : '******'}</span>
-              <button className="password-toggle" onClick={togglePasswordVisibility}>
-                {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
-              </button>
+      <div className="profile-container">
+        <div className="profile-card">
+          <div className="profile-header">
+            <h1 className="profile-title">Fatafat Yatra Profile</h1>
+            <img src={profilePic} alt="Profile" className="profile-image" />
+            <div className="username-container">
+              <h2 style={{
+                background: 'linear-gradient(to right, #E91E63, #9C27B0, #673AB7, #3F51B5, #2196F3, #03A9F4, #00BCD4)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}>
+                @{profileData.username}
+              </h2>
             </div>
           </div>
-          <div className="detail-row">
-            <span className="detail-label detail-label-green">Username:</span>
-            <span className="detail-value">{profileData.username}</span>
-          </div>
-          <div className="detail-row">
-            <span className="detail-label detail-label-cherry">Email:</span>
-            <span className="detail-value">{profileData.email}</span>
-          </div>
-          <div className="detail-row">
-            <span className="detail-label detail-label-green">Account Creation Date:</span>
-            <span className="detail-value">{profileData.accountCreationDate}</span>
-          </div>
-          <div className="detail-row">
-            <span className="detail-label detail-label-orange">Account Creation Time:</span>
-            <span className="detail-value">{profileData.accountCreationTime}</span>
+          <div className="profile-details">
+            <div className="detail-row">
+              <span className="detail-label detail-label-green">ID:</span>
+              <span className="detail-value">{profileData._id}</span>
+            </div>
+            <div className="detail-row">
+              <span className="detail-label detail-label-orange">Username:</span>
+              <span className="detail-value">{profileData.username}</span>
+            </div>
+            <div className="detail-row">
+              <span className="detail-label detail-label-blue">Password:</span>
+              <div className="password-container">
+                <span className="detail-value">{showPassword ? profileData.password : '******'}</span>
+                <button className="password-toggle" onClick={togglePasswordVisibility}>
+                  {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
+                </button>
+              </div>
+            </div>
+            <div className="detail-row">
+              <span className="detail-label detail-label-cherry">Email:</span>
+              <span className="detail-value">{profileData.email}</span>
+            </div>
+            <div className="detail-row">
+              <span className="detail-label detail-label-green">Account Creation Date:</span>
+              <span className="detail-value">{profileData.accountCreationDate}</span>
+            </div>
+            <div className="detail-row">
+              <span className="detail-label detail-label-orange">Account Creation Time:</span>
+              <span className="detail-value">{profileData.accountCreationTime}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <BottomBar/>
+      <BottomBar />
     </>
   );
 };
