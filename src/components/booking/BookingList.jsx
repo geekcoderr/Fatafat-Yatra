@@ -21,7 +21,7 @@ function BookingList() {
         <>
             <div className="max-w-6xl w-full px-4 lg:px-0 mx-auto">
                 <div className="pt-40 pb-20">
-                   hello
+                   under process
                 </div>
             </div>
         </>
