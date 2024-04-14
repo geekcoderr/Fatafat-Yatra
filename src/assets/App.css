@@ -1261,7 +1261,7 @@ body {
 
 .booklist h4 {
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: 900;
   margin-bottom: 0.75rem;
   color: #e67e22;
   transition: color 0.3s ease;
@@ -1282,6 +1282,18 @@ body {
 .booklist h5:hover {
   color: #27ae60;
 }
+
+.booklist h6 {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #d50e6e;
+  transition: color 0.3s ease;
+}
+
+.booklist h6:hover{
+  color: #91023d;
+}
+
 
 .booklist .pickup-time {
   color: #e74c3c;

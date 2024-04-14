@@ -28,6 +28,7 @@ const Signin = () => {
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('isAuthenticated', true);
           localStorage.setItem('username', response.data.username);
+          localStorage.setItem('currentUserId',response.data.id);
           navigate('/home');
         } else if (response.data.message === 'unauthenticated') {
           setMessage('Credentials are not Valid!');

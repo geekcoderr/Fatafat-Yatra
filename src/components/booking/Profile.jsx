@@ -104,6 +104,10 @@ const Profile = () => {
               <span className="detail-label detail-label-orange">Account Creation Time:</span>
               <span className="detail-value">{profileData.accountCreationTime}</span>
             </div>
+            <div className="detail-row">
+            <span className="detail-label text-red-500">Wallet Credits:</span>
+              <span className="detail-value text-orange-500"><b>© {profileData.balance}</b></span>
+            </div>
           </div>
         </div>
       </div>

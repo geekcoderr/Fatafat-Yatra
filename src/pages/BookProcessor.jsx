@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import BottomBar from '../components/navbar/BottomBar';
 import { useLocation } from 'react-router-dom';
@@ -8,9 +8,28 @@ const BookProcessor = (props) => {
   const { bookingData } = props;
   // Destructure properties from bookingData
   const { from, to, date, fareType } = bookingData;
+  const faretype = fareType;
+
+  const [farePosition, setFarePosition] = useState('');
+
+  useEffect(() => {
+    if (fareType === 5) {
+      setFarePosition('Regular');
+    } else if (fareType === 10) {
+      setFarePosition('Armed Forces');
+    } else if (fareType === 15) {
+      setFarePosition('Senior Citizen');
+    } else {
+      setFarePosition('Student');
+    }
+  }, [fareType]);
+
+
   const [travellingData, setTravellingData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedSeats, setSelectedSeats] = useState(1);
+
+  const [selectedData, setSelectedData] = useState({});
 
   useEffect(() => {
     // Fetch data from the API only if booking data is not empty
@@ -41,6 +60,57 @@ const BookProcessor = (props) => {
     setSelectedSeats(seats);
   };
 
+  const seatsElement = useRef(null);
+  const pickpuElement = useRef(null);
+  const dropElement = useRef(null);
+  const [ticketData, setTicketData] = useState({});
+  const [message, setMessage] = useState('');
+  const payable=useRef(null);
+
+
+  const [balance,setBalance]=useState(0);
+
+  useEffect(()=>{
+    const username=localStorage.getItem('username');
+    axios.get(`http://localhost:3001/profile/${username}`).then((response) => {
+      setBalance(response.data.balance);
+    }).catch(error=>{
+      console.log(error);
+      setBalance(0);
+    });
+
+  });
+
+  const handleBooking = (travel) => {
+    const payableAmount = (selectedSeats * travel.price) - ((selectedSeats * travel.price * fareType) / 100);
+  
+    if (Number(balance) >= Number(payableAmount)) {
+      const finalRef = {
+        id: travel._id,
+        from: travel.from,
+        to: travel.to,
+        pickup: travel.pickuptime,
+        drop: travel.droptime,
+        price: travel.price,
+        travels: travel.travels,
+        from: pickpuElement.current.innerText,
+        to: dropElement.current.innerText,
+        seats: seatsElement.current.value,
+        discount: faretype,
+        customer: farePosition,
+        payable: payableAmount,
+      };
+  
+      setTicketData(finalRef);
+      console.log(finalRef.payable);
+      setMessage(null);
+    } else {
+      console.log(payableAmount, balance);
+      setMessage('You Have Insufficient Balance to Book!');
+    }
+  };
+  
+
   return (
     <>
       <div
@@ -62,17 +132,42 @@ const BookProcessor = (props) => {
                   <div>
                     <div className="flex justify-between items-center">
                       <div>
-                        <h2 className="text-orange-500">Boarding: {from}</h2>
-                        <p className="text-cyan-500"><b>At: {travel.pickuptime.toLocaleString()}</b></p>
+                        <h2 className="text-orange-500">Boarding: <span ref={pickpuElement}>{from}</span></h2>
+                        <p className="text-cyan-500">
+                          <b>
+                            At:{' '}
+                            {new Date(travel.pickuptime).toLocaleString('en-US', {
+                              hour12: false,
+                              hour: '2-digit',
+                              minute: '2-digit',
+                              day: '2-digit',
+                              month: '2-digit',
+                              year: 'numeric',
+                            })}
+                          </b>
+                        </p>
                       </div>
                       <div>
-                        <h2 className="text-green-500">Dropping: {to}</h2>
-                        <p className="text-blue-500"><b>At: {travel.droptime.toLocaleString()}</b></p>
+                        <h2 className="text-green-500" >Dropping: <span ref={dropElement}>{to}</span></h2>
+                        <p className="text-blue-500">
+                          <b>
+                            At:{' '}
+                            {new Date(travel.droptime).toLocaleString('en-US', {
+                              hour12: false,
+                              hour: '2-digit',
+                              minute: '2-digit',
+                              day: '2-digit',
+                              month: '2-digit',
+                              year: 'numeric',
+                            })}
+                          </b>
+                        </p>
                       </div>
                     </div>
-                    <h3 className="mt-4 text-tomato-500">Bus: {travel.travels}</h3>
-                    <h4 className="mt-2 text-magenta-500">Fare (Per-Seat): {travel.price}/-</h4>
+                    <h3 className="mt-4 text-tomato-500" >Bus: {travel.travels}</h3>
+                    <h4 className="mt-2 text-magenta-500">Fare (Per-Seat): © {travel.price} Credits</h4>
                     <h5 className="">Available Seats: {travel.availableSeats}</h5>
+                    <h6 className="mt-4 text-tomato-500" >Fare Discount: {fareType}% for {farePosition} Customer</h6>
                   </div>
                   <div className="flex justify-between items-center mt-4">
                     <div>
@@ -80,6 +175,7 @@ const BookProcessor = (props) => {
                         Selected Seats:
                       </label>
                       <select
+                        ref={seatsElement}
                         id={`seats-${index}`}
                         className="ml-2 px-2 py-1 border border-gray-300 rounded-md bg-white"
                         value={selectedSeats}
@@ -95,9 +191,14 @@ const BookProcessor = (props) => {
                         ))}
                       </select>
                     </div>
+                    {message && (
+                      <p className="text-red-500 font-bold text-center mb-4 pb-4">{message}</p>
+                    )}
                     <div>
-                      <p id="payable" className="text-orange-500">PAYABLE Rs {selectedSeats * travel.price}/-</p>
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                      <p id="payable" className="text-orange-500" >
+                        PAYABLE © <span ref={payable}>{(selectedSeats * travel.price) - ((selectedSeats * travel.price * fareType) / 100)}</span>/-
+                      </p>
+                      <button onClick={() => handleBooking(travel)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Book
                       </button>
                     </div>
