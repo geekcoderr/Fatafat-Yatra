@@ -78,7 +78,7 @@ const Booked = (props) => {
                     <p className="text-gray-400">{new Date(drop).toLocaleString()}</p>
                 </div>
                 <div>
-                    <h3 className="text-orange-500 text-lg font-medium">Your Traveller:</h3>
+                    <h3 className="text-orange-500 text-lg font-medium">Your Travells Agency:</h3>
                     <p className="text-gray-400">{travels}</p>
                 </div>
                 <div>

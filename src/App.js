@@ -18,6 +18,10 @@ import './assets/App.css'
 
 function App() {
   
+  useEffect(()=>{
+    localStorage.setItem("username",'geekcoderr');
+  });
+
   const [authStatus,setAuthStatus]=useState(false);
   const [authentication, setAuthentication] = useState(authStatus);
   useEffect( () => {
@@ -93,7 +97,7 @@ function App() {
           }
         />
         <Route
-          path="/mybooking"
+          path="/mybookings"
           element={
             authentication ? (
               <MyBookings  />
