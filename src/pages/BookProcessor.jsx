@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import BottomBar from '../components/navbar/BottomBar';
-import { useLocation } from 'react-router-dom';
+import error from './location-not-found.svg';
+import Booked from './Booked';
 
 const BookProcessor = (props) => {
   // Destructure bookingData from props
@@ -9,7 +10,7 @@ const BookProcessor = (props) => {
   // Destructure properties from bookingData
   const { from, to, date, fareType } = bookingData;
   const faretype = fareType;
-
+  const [booked, setBooked] = useState(false);
   const [farePosition, setFarePosition] = useState('');
 
   useEffect(() => {
@@ -65,16 +66,16 @@ const BookProcessor = (props) => {
   const dropElement = useRef(null);
   const [ticketData, setTicketData] = useState({});
   const [message, setMessage] = useState('');
-  const payable=useRef(null);
+  const payable = useRef(null);
 
 
-  const [balance,setBalance]=useState(0);
+  const [balance, setBalance] = useState(0);
 
-  useEffect(()=>{
-    const username=localStorage.getItem('username');
+  useEffect(() => {
+    const username = localStorage.getItem('username');
     axios.get(`http://localhost:3001/profile/${username}`).then((response) => {
       setBalance(response.data.balance);
-    }).catch(error=>{
+    }).catch(error => {
       console.log(error);
       setBalance(0);
     });
@@ -83,7 +84,7 @@ const BookProcessor = (props) => {
 
   const handleBooking = (travel) => {
     const payableAmount = (selectedSeats * travel.price) - ((selectedSeats * travel.price * fareType) / 100);
-  
+
     if (Number(balance) >= Number(payableAmount)) {
       const finalRef = {
         id: travel._id,
@@ -100,28 +101,56 @@ const BookProcessor = (props) => {
         customer: farePosition,
         payable: payableAmount,
       };
-  
+
       setTicketData(finalRef);
-      console.log(finalRef.payable);
       setMessage(null);
+      // console.log(ticketData);
+      
+      const handleCreditUpdate = async () => {
+        console.log('deducted');
+        try {
+          await axios.post('http://localhost:3001/creditupdate', {
+            username: localStorage.getItem('username'),
+            deductionAmount: payableAmount, // Convert deductionAmount to an integer
+          }
+        );
+        // console.log(payableAmount);
+        } catch (error) {
+          console.error('Error:', error);
+          setMessage('An error occurred while updating the balance');
+        }
+      };
+      
+      handleCreditUpdate();
+
+      setBooked(true); // Set booked to true
+
     } else {
-      console.log(payableAmount, balance);
-      setMessage('You Have Insufficient Balance to Book!');
+      // console.log(payableAmount, balance);
+      setMessage('You Have Insufficient Credit Balance to Book!');
     }
   };
-  
+
 
   return (
     <>
       <div
         className="flex justify-center items-center"
         style={{ backdropFilter: 'blur(5px)', marginTop: '15%', marginBottom: '20%' }}
-      >
+      >{booked === false ? (
+
         <div className="max-w-6xl w-full px-4 lg:px-0 mx-auto">
           {loading ? (
-            <p>Loading...</p>
+            <div className="w-full drop-shadow mx-auto rounded-md py-20 px-4 text-center" style={{ height: '90vh' }}>
+              <p>Loading...</p>
+            </div>
           ) : travellingData.length === 0 ? (
-            <div className="large-card">OOPS! No Travelling available right now!</div>
+            <div className="w-full drop-shadow mx-auto rounded-md py-20 px-4 text-center" style={{ height: '90vh' }}>
+              <span id="error">
+                <img src={error} alt='error' style={{ width: '150px', margin: '30px' }} />
+                OOPS! We Can't Find Routes right now!
+              </span>
+            </div>
           ) : (
             <div className="booklist">
               {travellingData.map((travel, index) => (
@@ -208,9 +237,18 @@ const BookProcessor = (props) => {
             </div>
           )}
         </div>
+      ) :
+        (
+          <div className="flex justify-center items-center h-screen" style={{ marginTop: '-15vh' }} >
+            <Booked data={ticketData} />
+          </div>
+        )
+        }
       </div>
     </>
   );
 };
+
+
 
 export default BookProcessor;

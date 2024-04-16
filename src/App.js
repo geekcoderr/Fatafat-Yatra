@@ -8,7 +8,9 @@ import Landing from "./pages/Landing";
 import Thanks from "./pages/Thanks";
 import SignIn from './Authentication/SignIn';
 import Register from './Authentication/Register';
-import BookingList from "./components/booking/BookingList";
+import BookingFinal from "./components/booking/BookingFinal";
+import MyBookings from "./components/booking/MyBookings";
+import MyTicket from "./components/booking/MyTicket";
 import Profile from "./components/booking/Profile"
 import NotAvilable from './pages/NotAvilable';
 import BookProcessor from "./pages/BookProcessor";
@@ -16,7 +18,6 @@ import './assets/App.css'
 
 function App() {
   
-  let flag=true;
   const [authStatus,setAuthStatus]=useState(false);
   const [authentication, setAuthentication] = useState(authStatus);
   useEffect( () => {
@@ -62,10 +63,10 @@ function App() {
           }
         />
         <Route
-          path="/BookingList"
+          path="/BookingFinal"
           element={
             authentication ? (
-              <BookingList  />
+              <BookingFinal  />
             ) : (
               <NotFound/>
             )
@@ -86,6 +87,26 @@ function App() {
           element={
             authentication ? (
               <BookProcessor  />
+            ) : (
+              <NotFound />
+            )
+          }
+        />
+        <Route
+          path="/mybooking"
+          element={
+            authentication ? (
+              <MyBookings  />
+            ) : (
+              <NotFound />
+            )
+          }
+        />
+        <Route
+          path="/myticket"
+          element={
+            authentication ? (
+              <MyTicket  />
             ) : (
               <NotFound />
             )

@@ -75,9 +75,9 @@ const WebNav = (props) => {
                         <div id="dropdown" className="absolute top-full right-0 mt-2 p-2 border rounded shadow-md w-64" style={{ zIndex: 1000 }}>
                             <ul>
                                 <li id="listHover" className="py-2 px-4 rounded-md text-center"><Link to="/profile">Profile</Link></li>
-                                <li id="listHover" className="py-2 px-4 rounded-md text-center"><Link to="/my-bookings">My Bookings</Link></li>
+                                <li id="listHover" className="py-2 px-4 rounded-md text-center"><Link to="/mybookings">My Bookings</Link></li>
                                 {/* <li id="listHover" className="py-2 px-4 rounded-md text-center"><Link to="/cancel-tickets">Cancel Tickets</Link></li> */}
-                                <li id="listHover" className="py-2 px-4 rounded-md text-center"><Link to="/show-my-ticket">Show My Ticket</Link></li>
+                                <li id="listHover" className="py-2 px-4 rounded-md text-center"><Link to="/myticket">Show My Ticket</Link></li>
                                 <li id="listHover" style={{backgroundColor:'rgb(255, 155, 15)',color:'black'}} className="py-2 px-4 rounded-md text-center"><button onClick={handleSignOut}>Sign Out</button></li>
                             </ul>
                         </div>
