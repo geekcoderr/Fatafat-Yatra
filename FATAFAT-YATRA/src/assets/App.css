@@ -57,6 +57,14 @@ input[type=radio]::after {
   /* background: aqua; */
 }
 
+#thanks{
+  width: 100%;
+}
+
+#help{
+  background-color: #0c0c0cbd;
+  backdrop-filter: blur(10px);
+}
 
 /* Register.css */
 .register-container {

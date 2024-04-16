@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Import Axios
 import NotFound from '../pages/NotFound';
 import BottomBar from '../components/navbar/BottomBar';
 
@@ -14,18 +15,30 @@ const HelpForm = (props) => {
     }
   }, [storedValue]);
 
-  const actiononsubmit = (event) => {
+  const actiononsubmit = async (event) => {
     event.preventDefault(); // Prevent form submission
     if (isAuthenticated) {
-      navigate('/thanks');
-      console.log('Navigated to thanks');
+      try {
+        const formData = new FormData(event.target);
+        const response = await axios.post('http://localhost:3001/support', {
+          name: formData.get('name'),
+          email: formData.get('email'),
+          message: formData.get('message')
+        });
+        console.log('Data sent successfully:', response.data);
+        navigate('/thanks');
+        console.log('Navigated to thanks');
+      } catch (error) {
+        console.error('Error sending data:', error);
+      }
     } else {
       console.log('User not authenticated');
     }
   };
 
+  
   return (
-    <div style={{backdropFilter: 'blur(5px)'}}>
+    <div style={{ backdropFilter: 'blur(5px)' }} >
       {isAuthenticated ? (
         <div className="flex justify-center items-center h-screen">
           <div className="help-form-container">
@@ -35,10 +48,10 @@ const HelpForm = (props) => {
               </div>
             </center>
             <center>
-              <form className="feedback-form" onSubmit={actiononsubmit} style={{background:'linear-gradient( to right, rgba(128, 0, 128, 0.2), rgba(238, 130, 238, 0.2) )'}}>
-                <input type="text" placeholder="Name" required />
-                <input type="email" placeholder="Email" required />
-                <textarea placeholder="Message" required></textarea>
+              <form className="feedback-form " onSubmit={actiononsubmit} id="help">
+                <input type="text" name="name" placeholder="Name" required />
+                <input type="email" name="email" placeholder="Email" required />
+                <textarea name="message" placeholder="Message" required></textarea>
                 <button type="submit">Submit</button>
               </form>
             </center>
@@ -47,7 +60,7 @@ const HelpForm = (props) => {
       ) : (
         <NotFound />
       )}
-              <BottomBar />
+      <BottomBar />
     </div>
   );
 };

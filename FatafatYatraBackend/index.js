@@ -223,6 +223,29 @@ app.post('/creditupdate', async (req, res) => {
 });
 
 
+const supportSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  message: String,
+  timestamp: { type: Date, default: Date.now }
+});
+const Support = mongoose.model('Support', supportSchema);
+
+app.post('/support', async (req, res) => {
+  try {
+    const { name, email, message } = req.body;
+
+    // Create a new entry in the "support" collection
+    await Support.create({ name, email, message });
+
+    return res.json({ message: 'Support data saved' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
 
 // Start the server
 const PORT = process.env.PORT || 3001;
